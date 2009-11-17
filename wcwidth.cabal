@@ -20,7 +20,6 @@ build-type                    : Simple
 library
   build-depends               : base >= 2 && < 4
                               , containers
-                              , setlocale >= 0.0.3
   exposed-modules             : Data.Char.WCWidth
   extensions                  : StandaloneDeriving
                                 ForeignFunctionInterface
@@ -30,8 +29,10 @@ executable                      wcwidth-tools
   main-is                     : WCWidthTableaux.hs
   build-depends               : base >= 2 && < 4
                               , containers
+                              , bytestring
                               , setlocale >= 0.0.3
                               , utf8-string >= 0.3
+                              , bytestringparser-temporary >= 0.4.1
   extensions                  : StandaloneDeriving
                                 ForeignFunctionInterface
 

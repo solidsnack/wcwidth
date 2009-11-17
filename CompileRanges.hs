@@ -13,7 +13,6 @@ import System.IO (stdin, stdout, stderr)
 import Data.ByteString.Lazy.Char8 hiding (count, foldl', reverse)
 
 import Data.ParserCombinators.Attoparsec.Char8
-import Data.ByteString.Nums.Careless
 
 
 
