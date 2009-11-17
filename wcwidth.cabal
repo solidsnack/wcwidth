@@ -15,6 +15,7 @@ description                   :
 
 cabal-version                 : >= 1.6.0
 build-type                    : Simple
+extra-source-files            : CompileRanges.hs
 
 
 library
