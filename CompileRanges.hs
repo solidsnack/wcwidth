@@ -1,4 +1,6 @@
 #!/usr/bin/env runhaskell
+{-# LANGUAGE OverloadedStrings
+  #-}
 
 
 module CompileRanges where

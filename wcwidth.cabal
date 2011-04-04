@@ -1,10 +1,10 @@
 name                          : wcwidth
-version                       : 0.0.1
+version                       : 0.0.2
 category                      : Text
 license                       : BSD3
 license-file                  : LICENSE
 author                        : Jason Dusek
-maintainer                    : wcwidth@solidsnack.be 
+maintainer                    : oss@solidsnack.be
 homepage                      : http://github.com/solidsnack/wcwidth/
 synopsis                      : Native wcwidth.
 description                   :
@@ -18,17 +18,23 @@ build-type                    : Simple
 extra-source-files            : CompileRanges.hs
 
 
+flag split-base
+
 flag cli
   description                 : Enable command line tool.
   default                     : False
 
 
 library
-  build-depends               : base >= 2 && < 4
-                              , containers
+  if flag(split-base)
+    build-depends             : base >= 4 && < 5
+  else
+    build-depends             : base < 4
+  build-depends               : containers
   exposed-modules             : Data.Char.WCWidth
   extensions                  : StandaloneDeriving
                                 ForeignFunctionInterface
+                                OverloadedStrings
 
 
 executable                      wcwidth-tools
@@ -37,13 +43,17 @@ executable                      wcwidth-tools
     buildable                 : True
   else
     buildable                 : False
-  build-depends               : base >= 2 && < 4
-                              , containers
+  if flag(split-base)
+    build-depends             : base >= 4 && < 5
+  else
+    build-depends             : base < 4
+  build-depends               : containers
                               , bytestring
                               , setlocale >= 0.0.3
                               , utf8-string >= 0.3
                               , attoparsec >= 0.8.5
   extensions                  : StandaloneDeriving
                                 ForeignFunctionInterface
+                                OverloadedStrings
 
 

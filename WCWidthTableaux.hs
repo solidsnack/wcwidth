@@ -1,6 +1,4 @@
 #!/usr/bin/env runhaskell
-
-
 {-# LANGUAGE StandaloneDeriving
   #-}
 
@@ -49,7 +47,7 @@ main                         =  do
       hPutStrLn stderr usage'
       exitFailure
  where
-  rolling_print f            =  sequence_ . fmap (UTF8.putStrLn . f)
+  rolling_print f            =  sequence_ . fmap (putStrLn . f)
   range_entry ((a,b),w)      =  printf fmt a' b' w count s
    where
     count                    =  1 + fromEnum b - fromEnum a
