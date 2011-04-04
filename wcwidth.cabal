@@ -18,6 +18,11 @@ build-type                    : Simple
 extra-source-files            : CompileRanges.hs
 
 
+flag cli
+  description                 : Enable command line tool.
+  default                     : False
+
+
 library
   build-depends               : base >= 2 && < 4
                               , containers
@@ -28,12 +33,16 @@ library
 
 executable                      wcwidth-tools
   main-is                     : WCWidthTableaux.hs
+  if flag(cli)
+    buildable                 : True
+  else
+    buildable                 : False
   build-depends               : base >= 2 && < 4
                               , containers
                               , bytestring
                               , setlocale >= 0.0.3
                               , utf8-string >= 0.3
-                              , bytestringparser-temporary >= 0.4.1
+                              , attoparsec >= 0.8.5
   extensions                  : StandaloneDeriving
                                 ForeignFunctionInterface
 

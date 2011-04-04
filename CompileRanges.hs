@@ -3,16 +3,17 @@
 
 module CompileRanges where
 
-import Prelude hiding (lines, unlines)
+import Prelude hiding (concat, lines, unlines, takeWhile)
 import Data.List (foldl')
-import Data.Char
+import Data.Char hiding (isDigit)
 import Data.Maybe
 import Data.Either
 import Control.Applicative hiding (empty)
 import System.IO (stdin, stdout, stderr)
-import Data.ByteString.Lazy.Char8 hiding (count, foldl', reverse)
+import Data.ByteString.Char8 hiding (takeWhile, count, foldl', reverse)
 
-import Data.ParserCombinators.Attoparsec.Char8
+import Data.Attoparsec (parseOnly)
+import Data.Attoparsec.Char8
 
 
 
@@ -27,7 +28,7 @@ compile_ranges i o           =  do
   (sequence_ . (hPut o . compile <$>) . collate) ranges
   hPut o postamble
  where
-  parse'                     =  (snd . parse range <$>)
+  parse'                     =  (parseOnly range <$>)
   display ((a,z),w)          =  a `append` pack ".." `append` z `snoc` '\n'
   compile ((a,z),w)          =  guard `append` eq `append` w `snoc` '\n'
    where
@@ -59,17 +60,17 @@ range                        =  do
 
 short_hex                   ::  Parser ByteString
 short_hex                    =  do
-  ox                        <-  match (string "0x")
+  ox                        <-  string "0x"
   count 4 (char '0')
-  append ox <$> match (count 4 (satisfy isHexDigit))
+  append ox . pack <$> count 4 (satisfy isHexDigit)
 
 little_int                  ::  Parser ByteString
 little_int                   =  do
   sign                      <-  maybe empty id <$> optional minus
-  digits                    <-  match (satisfy isDigit)
+  digits                    <-  takeWhile isDigit
   return (append sign digits)
  where
-  minus                      =  match (char '-')
+  minus                      =  string "-"
 
 
 
