@@ -1,4 +1,4 @@
-module Data.Char.WCWidthNative where
+module Data.Char.WCWidthHaskell where
 import Data.Set.Range
 import Data.Char
 

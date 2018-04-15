@@ -32,7 +32,7 @@ library
     build-depends             : base < 4
   build-depends               : containers, rset
   exposed-modules             : Data.Char.WCWidth
-  other-modules               : Data.Char.WCWidthNative
+  other-modules               : Data.Char.WCWidthHaskell
   extensions                  : StandaloneDeriving
                                 ForeignFunctionInterface
                                 OverloadedStrings
