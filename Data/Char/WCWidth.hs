@@ -69,7 +69,7 @@ wcwidth                     ::  Char -> Int
 wcwidth                      =  fromEnum . native . toEnum . fromEnum
 
 #ifdef ghcjs_HOST_OS
-native :: CWChar -> CInt
+native :: CWchar -> CInt
 native _ = 1
 #else
 foreign import ccall unsafe "wchar.h wcwidth" native :: CWchar -> CInt
