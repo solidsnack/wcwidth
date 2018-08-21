@@ -1,7 +1,7 @@
 
 
-{-# LANGUAGE ForeignFunctionInterface
-  #-}
+{-# LANGUAGE ForeignFunctionInterface #-}
+{-# LANGUAGE CPP #-}
 
 
 {-| A binding for the native 'wcwidth'. It's important that you 'setLocale'
@@ -68,7 +68,10 @@ ranges                       =  reverse (foldl' aggregate start (tail widths))
 wcwidth                     ::  Char -> Int
 wcwidth                      =  fromEnum . native . toEnum . fromEnum
 
-
+#ifdef ghcjs_HOST_OS
+native :: CWchar -> CInt
+native _ = 1
+#else
 foreign import ccall unsafe "wchar.h wcwidth" native :: CWchar -> CInt
-
+#endif
 
