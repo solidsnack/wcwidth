@@ -41,9 +41,7 @@ module Data.Char.WCWidth
 
 import Foreign.C
 import Data.List
-
-
-
+import qualified Data.Char.WCWidthHaskell as WCH
 
 {-| Widths of all characters. 
  -}
@@ -66,9 +64,13 @@ ranges                       =  reverse (foldl' aggregate start (tail widths))
 {-| Binding to the native 'wcwidth'. 
  -}
 wcwidth                     ::  Char -> Int
+#if defined(mingw32_HOST_OS)
+wcwidth                      = WCH.wcwidth
+#else
 wcwidth                      =  fromEnum . native . toEnum . fromEnum
+#endif
 
-
+#if !defined(mingw32_HOST_OS)
 foreign import ccall unsafe "wchar.h wcwidth" native :: CWchar -> CInt
-
+#endif
 
