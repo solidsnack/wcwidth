@@ -13,7 +13,7 @@ description                   :
   to Haskell code that assigns widths to the Char type.
 
 
-cabal-version                 : >= 1.6.0
+cabal-version                 : >= 1.8
 build-type                    : Simple
 extra-source-files            : CompileRanges.hs
 
