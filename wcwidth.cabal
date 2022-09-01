@@ -13,7 +13,7 @@ description                   :
   to Haskell code that assigns widths to the Char type.
 
 
-cabal-version                 : >= 1.8
+cabal-version                 : >= 1.10
 build-type                    : Simple
 extra-source-files            : CompileRanges.hs
 
@@ -30,14 +30,30 @@ library
     build-depends             : base >= 4 && < 5
   else
     build-depends             : base < 4
-  build-depends               : containers, rset
+  build-depends               : array >= 0.5.4 && < 0.6
   exposed-modules             : Data.Char.WCWidth
-  other-modules               : Data.Char.WCWidthHaskell
-  extensions                  : StandaloneDeriving
+  other-modules               : Data.Char.WCWidth.Internal.Data
+                                Data.Char.WCWidth.Internal.Haskell
+                                Data.Char.WCWidth.Internal.RangeSet
+  default-extensions          : StandaloneDeriving
                                 ForeignFunctionInterface
                                 OverloadedStrings
                                 CPP
+  default-language            : Haskell2010
 
+test-suite                      wcwidth-test
+  type                        : exitcode-stdio-1.0
+  main-is                     : WCWidthSpec.hs
+  if flag(split-base)
+    build-depends             : base >= 4 && < 5
+  else
+    build-depends             : base < 4
+  other-modules               : Data.Char.WCWidth.Internal.Data
+                                Data.Char.WCWidth.Internal.RangeSet
+  build-depends               : array >= 0.5.4 && < 0.6
+                              , QuickCheck >= 2.14.2 && < 2.15
+                              , hspec >= 2.8.5 && < 2.9
+  default-language            : Haskell2010
 
 executable                      wcwidth-tools
   main-is                     : WCWidthTableaux.hs
@@ -49,13 +65,13 @@ executable                      wcwidth-tools
     build-depends             : base >= 4 && < 5
   else
     build-depends             : base < 4
-  build-depends               : containers
+  build-depends               : array >= 0.5.4 && < 0.6
+                              , containers
                               , bytestring
                               , setlocale >= 0.0.3
                               , utf8-string >= 0.3
                               , attoparsec >= 0.8.5
-  extensions                  : StandaloneDeriving
+  default-extensions          : StandaloneDeriving
                                 ForeignFunctionInterface
                                 OverloadedStrings
-
-
+  default-language            : Haskell2010

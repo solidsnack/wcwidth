@@ -1,9 +1,4 @@
-
-
-{-# LANGUAGE ForeignFunctionInterface
-  #-}
-
-
+{-# LANGUAGE ForeignFunctionInterface #-}
 {-| A binding for the native 'wcwidth'. It's important that you 'setLocale'
     before using it, like this:
 
@@ -41,7 +36,7 @@ module Data.Char.WCWidth
 
 import Foreign.C
 import Data.List
-import qualified Data.Char.WCWidthHaskell as WCH
+import qualified Data.Char.WCWidth.Internal.Haskell as WCH
 
 {-| Widths of all characters. 
  -}
