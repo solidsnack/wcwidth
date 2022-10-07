@@ -1,0 +1,8 @@
+cradle:
+  stack:
+    - path: .
+      component: wcwidth:lib
+    - path: WCWidthSpec.hs
+      component: wcwidth:test:wcwidth-test
+    - path: WCWidthTableaux.hs
+      component: wcwidth:exe:wcwidth-tools
